@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prefeitura</title>
+</h:head>
+<h:body>
+		<ui:include src="../template/menu.xhtml" />
+	<h:form id="form1">
+				<p:growl id="growl" showDetail="true" sticky="true" />
+
+				<h:panelGrid columns="3">
+					<p:outputLabel for="default" value="Nome carga:" />
+					<p:inputText id="default"
+						value="#{bean.filtro.descricaoVesaoCarga}" required="true" />
+					<p:message for="default" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:dataTable var="item" value="#{bean.assuntos}"
+						selection="#{bean.filtro.assunto}" rowKey="#{item.id}" rows="5"
+						paginator="true" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+
+						<p:column headerText="Assunto*" filterBy="#{item.descricao}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{item.descricao}" />
+						</p:column>
+					</p:dataTable>
+
+					<p:dataTable var="item" value="#{bean.classificacoes}"
+						selection="#{bean.filtro.classificacao}" rowKey="#{item.id}"
+						rows="5" paginator="true" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Classificação" filterBy="#{item.descricao}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{item.descricao}" />
+						</p:column>
+					</p:dataTable>
+
+					<p:dataTable var="item" value="#{bean.periodicidades}"
+						selection="#{bean.filtro.periodicidade}" rowKey="#{item.id}"
+						rows="5" styleClass="layoutAuto" paginator="true"
+						paginatorPosition="bottom" rowsPerPageTemplate="5,10,15">
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Periodicidades" filterBy="#{item.descricao}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{item.descricao}" />
+						</p:column>
+					</p:dataTable>
+
+					<p:dataTable var="item" value="#{bean.niveis}"
+						selection="#{bean.filtro.nivel}" rowKey="#{item.id}" rows="5"
+						styleClass="layoutAuto" paginator="true"
+						paginatorPosition="bottom" rowsPerPageTemplate="5,10,15">
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Nível" filterBy="#{item.descricao}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{item.descricao}" />
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Cadastrar"
+						actionListener="#{bean.pesquisar}" update="@form" />
+					<p:commandButton value="Limpar" actionListener="#{bean.limpar}"
+						update="@form" process="@this" />
+					
+				</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

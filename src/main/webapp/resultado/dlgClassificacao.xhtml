@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog header="Classificação" appendTo="@(body)" widgetVar="dlgClassficacao" modal="true" resizable="true" position="center">
+		<h:form id="form2">
+			
+			<h:panelGrid columns="2">
+	            
+	            <p:outputLabel value="Classificação:"/>
+	            <p:selectOneMenu value="#{beanAgregado.classificacaoAgregadoId}" filter="true" filterMatchMode="contains" >
+	                <f:selectItem itemLabel="Selecione..." itemValue=""/>
+	                <f:selectItems value="#{beanAgregado.classificacoesAgregado}" var="item" itemLabel="#{item.nome}" itemValue="#{item.id}" />
+	                <p:ajax event="change" listener="#{beanAgregado.pesquisarCategoria}" update="campoCategoria" process="@this" />
+	            </p:selectOneMenu>
+	            <p:outputLabel value="Categoria:"/>
+	            <p:selectOneMenu value="#{beanAgregado.categoriaId}" id="campoCategoria" filter="true" filterMatchMode="contains">
+	                <f:selectItem itemLabel="Selecione..." itemValue=""/>
+	                <f:selectItems value="#{beanAgregado.categorias}" var="item" itemLabel="#{item.nome}" itemValue="#{item.id}" />
+	            </p:selectOneMenu>
+	            
+	        </h:panelGrid>
+	        <br />
+	        <center>
+				<p:commandButton value="Adicionar" actionListener="#{beanAgregado.adicionar}" update="form1" oncomplete="PF('dlgClassficacao').hide()" />
+	        </center>
+		</h:form>
+	</p:dialog>
+</html>

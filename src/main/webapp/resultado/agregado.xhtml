@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prefeitura</title>
+</h:head>
+<h:body>
+		<ui:include src="../template/menu.xhtml" />
+	<h:form id="form1">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<h:panelGrid columns="2" id="pnlAgregado">
+			<p:outputLabel value="Versão carga:" />
+			<p:selectOneMenu value="#{beanAgregado.versaoCargaId}" filter="true"
+				filterMatchMode="contains">
+				<f:selectItem itemLabel="Selecione..." itemValue="" />
+				<f:selectItems value="#{beanAgregado.versoesCarga}" var="item"
+					itemLabel="#{item.descricao}" itemValue="#{item.id}" />
+				<p:ajax event="change" listener="#{beanAgregado.pesquisarAgregado}"
+					update="@form" process="@this" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Agregado:" />
+			<p:selectOneMenu value="#{beanAgregado.agregadoId}" filter="true"
+				filterMatchMode="contains">
+				<f:selectItem itemLabel="Selecione..." itemValue="" />
+				<f:selectItems value="#{beanAgregado.agregados}" var="item"
+					itemLabel="#{item.nome}" itemValue="#{item.id}" />
+				<p:ajax event="change"
+					listener="#{beanAgregado.pesquisarDependencia}"
+					update="pnlAgregado" process="@this" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Período:" />
+			<h:panelGrid columns="2">
+				<p:inputText value="#{beanAgregado.periodo}" />
+				<p:outputLabel value="#{beanAgregado.periodoExemplo}" />
+			</h:panelGrid>
+			<p:outputLabel value="Variável:" />
+			<p:selectOneMenu value="#{beanAgregado.variavelId}" filter="true"
+				filterMatchMode="contains">
+				<f:selectItem itemLabel="Selecione..." itemValue="" />
+				<f:selectItems value="#{beanAgregado.variaveis}" var="item"
+					itemLabel="#{item.nome}" itemValue="#{item.id}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Nível:" />
+			<p:selectOneMenu value="#{beanAgregado.nivelId}" filter="true"
+				filterMatchMode="contains">
+				<f:selectItem itemLabel="Selecione..." itemValue="" />
+				<f:selectItems value="#{beanAgregado.niveis}" var="item"
+					itemLabel="#{item.nivelAdmin.descricao}" itemValue="#{item.id}" />
+				<p:ajax event="change"
+					listener="#{beanAgregado.pesquisarLocalidade}"
+					update="campoLocalidade" process="@this" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Localidade:" />
+			<p:selectOneMenu value="#{beanAgregado.localidadeId}"
+				id="campoLocalidade" filter="true" filterMatchMode="contains">
+				<f:selectItem itemLabel="Selecione..." itemValue="" />
+				<f:selectItems value="#{beanAgregado.localidades}" var="item"
+					itemLabel="#{item.descricao}" itemValue="#{item.id}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<br />
+			<p:commandButton value="Selecionar" icon="ui-icon-circle-plus"
+				actionListener="#{beanAgregado.limparClassificacao}"
+				oncomplete="PF('dlgClassficacao').show()" update="form2" />
+			<p:dataTable var="item" value="#{beanAgregado.classificacoes}" rows="5"
+				paginator="true" paginatorPosition="bottom" style="width: 50%"
+				rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado" rowIndexVar="index">
+
+				<p:column headerText="Classificação">
+					<p:outputLabel value="#{item.classificacaoAgregado.nome}" />
+				</p:column>
+
+				<p:column headerText="Categoria">
+					<p:outputLabel value="#{item.categoria.nome}" />
+				</p:column>
+				
+				<p:column width="41">
+					<p:commandButton icon="ui-icon-trash" actionListener="#{beanAgregado.remover(index)}" update="@form" />
+				</p:column>
+			</p:dataTable>
+
+		<br />
+		<h:panelGrid columns="2">
+			<p:commandButton value="Cadastrar"
+				actionListener="#{beanAgregado.cadastrar}" update="@form" />
+			<p:commandButton value="Limpar"
+				actionListener="#{beanAgregado.limpar}" update="@form" />
+		</h:panelGrid>
+	</h:form>
+	<h:form>
+		<p:remoteCommand name="onload" action="#{beanAgregado.limpar}"
+			autoRun="true" update=":form1" />
+	</h:form>
+	<ui:include src="dlgClassificacao.xhtml" />
+</h:body>
+</html>
