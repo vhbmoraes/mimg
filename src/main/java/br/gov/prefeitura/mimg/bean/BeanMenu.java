@@ -43,7 +43,19 @@ public class BeanMenu {
 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		try {
-			ec.redirect(getUrlSgm());
+			ec.redirect(getUrlSgm() + "index.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void principal() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getSessionMap().remove("token");
+
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			ec.redirect(getUrlSgm() + "principal.xhtml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

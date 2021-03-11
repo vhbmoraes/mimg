@@ -9,7 +9,9 @@
 
 <p:panel>
 	<h:panelGrid columns="2">
-		<p:graphicImage url="../img/logo.jpg" width="70px" height="70px" />
+		<p:commandLink action="#{beanMenu.principal}">
+			<p:graphicImage url="../img/logo.jpg" width="70px" height="70px" />
+		</p:commandLink>
 		<h:panelGrid>
 			<h:outputText value="SGM - Sistema de Gestão Integrada Municipal" />
 			<h:outputText
