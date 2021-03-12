@@ -11,15 +11,14 @@ import br.gov.prefeitura.mimg.repository.ResultadoAgregadoRepository;
 
 @RestController
 public class ResultadoAgregadoController {
-	
+
 	@Autowired
 	private ResultadoAgregadoRepository resultadoAgregadoRepository;
-	
-	@RequestMapping("/resultadoAgregado")
-	public List<ResultadoAgregadoDto> resultado()
-	{
-		List<ResultadoAgregado> dto = resultadoAgregadoRepository.findAll();
-		return ResultadoAgregadoDto.converter(dto);
-	}
 
+	@RequestMapping("/resultadoAgregado")
+	public List<ResultadoAgregadoDto> resultado(Integer agregado) {
+		List<ResultadoAgregado> ra = resultadoAgregadoRepository.findByAgregadoIdIbgeAgregado(agregado);
+
+		return ResultadoAgregadoDto.converter(ra);
+	}
 }

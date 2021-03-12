@@ -10,5 +10,7 @@ import br.gov.prefeitura.mimg.entity.VersaoCarga;
 public interface AgregadoRepository extends JpaRepository<Agregado, Integer> {
 	
 	List<Agregado> findByVersaoCarga(VersaoCarga versaoCarga);
+	
+	Agregado findTop1ByIdIbgeAgregadoOrderByIdDesc(Integer idIbgeAgregado);
 
 }

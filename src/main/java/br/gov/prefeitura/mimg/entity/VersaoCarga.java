@@ -18,8 +18,6 @@ public class VersaoCarga {
 	@Column(name = "data_versao")
 	private Date dataVersao;
 	
-	
-	
 	public Integer getId() {
 		return id;
 	}
