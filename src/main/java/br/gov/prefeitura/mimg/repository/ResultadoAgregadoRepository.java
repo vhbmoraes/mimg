@@ -11,6 +11,8 @@ public interface ResultadoAgregadoRepository extends JpaRepository<ResultadoAgre
 	
 	List<ResultadoAgregado> findByAgregadoIdIbgeAgregado(Integer idIbgeAgregado);
 	
+	List<ResultadoAgregado> findTopByAgregadoIdIbgeAgregadoOrderByIdDesc(Integer idIbgeAgregado);
+	
 	Optional<ResultadoAgregado> findById(Integer id);
 
 }

@@ -15,10 +15,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class MimgApp {
+public class MimgApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MimgApp.class, args);
+		SpringApplication.run(MimgApplication.class, args);
 	}
 
 	@Bean

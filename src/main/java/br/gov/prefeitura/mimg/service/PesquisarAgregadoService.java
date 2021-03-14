@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -45,6 +46,7 @@ import br.gov.prefeitura.mimg.repository.SumarizacaoClassificacaoRepository;
 import br.gov.prefeitura.mimg.repository.VariavelRepository;
 import br.gov.prefeitura.mimg.repository.VersaoCargaRepository;
 import br.gov.prefeitura.mimg.service.AgregadoDto.Agregados;
+import br.gov.prefeitura.mimg.util.DataUtil;
 
 @Service
 public class PesquisarAgregadoService {
@@ -314,5 +316,15 @@ public class PesquisarAgregadoService {
 			}
 		}
 		return retorno;
+	}
+	
+	public String retornaDescricaoVersaoCarga()
+	{
+		VersaoCarga versaoCarga = versaoCargaRepository.findTopByOrderByIdDesc();
+		Integer id = 0;
+		if (versaoCarga != null)
+			id = versaoCarga.getId();
+		id++;
+		return id + " - " + DataUtil.formatar("dd/MM/yyyy") + " - " + DataUtil.formatar("HH:mm:ss");
 	}
 }

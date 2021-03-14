@@ -17,7 +17,7 @@ public class ResultadoAgregadoController {
 
 	@RequestMapping("/resultadoAgregado")
 	public List<ResultadoAgregadoDto> resultado(Integer agregado) {
-		List<ResultadoAgregado> ra = resultadoAgregadoRepository.findByAgregadoIdIbgeAgregado(agregado);
+		List<ResultadoAgregado> ra = resultadoAgregadoRepository.findTopByAgregadoIdIbgeAgregadoOrderByIdDesc(agregado);
 
 		return ResultadoAgregadoDto.converter(ra);
 	}

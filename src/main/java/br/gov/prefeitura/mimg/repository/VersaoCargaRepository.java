@@ -6,5 +6,6 @@ import br.gov.prefeitura.mimg.entity.VersaoCarga;
 
 public interface VersaoCargaRepository extends JpaRepository<VersaoCarga, Integer> {
 	
-
+	VersaoCarga	findTopByOrderByIdDesc();
+	
 }

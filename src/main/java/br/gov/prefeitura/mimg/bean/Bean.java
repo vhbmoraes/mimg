@@ -23,6 +23,7 @@ import br.gov.prefeitura.mimg.repository.NivelRepository;
 import br.gov.prefeitura.mimg.repository.PeriodicidadeRepository;
 import br.gov.prefeitura.mimg.repository.PesquisaRepository;
 import br.gov.prefeitura.mimg.service.PesquisarAgregadoService;
+import br.gov.prefeitura.mimg.util.DataUtil;
 
 @Component
 @RequestScope
@@ -64,6 +65,7 @@ public class Bean implements Serializable {
 		pesquisas = pesquisaRepository.findAll();
 		periodicidades = periodicidadeRepository.findAll();
 		niveis = nivelRepository.findAll();
+		filtro.setDescricaoVesaoCarga(pesquisarAgregadoService.retornaDescricaoVersaoCarga());
 	}
 	
 	public void pesquisar()
